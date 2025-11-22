@@ -35,5 +35,7 @@
             $('.tm-current-year').text(new Date().getFullYear());
         });
     </script>
+    
+    <jsp:include page="section_chatbot.jsp" />
 </body>
 </html>
