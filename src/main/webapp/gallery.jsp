@@ -1,64 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.vicky.dao.GalleryDAO" %>
+<%@ page import="com.vicky.dto.GalleryDTO" %>
+<%@ page import="java.util.List" %>
+
+<%
+    GalleryDAO dao = new GalleryDAO();
+    List<GalleryDTO> list = dao.getList();
+%>
+
 <div class="tm-section tm-section-pad tm-bg-gray" id="tm-section-4">
     <div class="container">
+        <div class="row mb-4">
+            <div class="col-8">
+                <h2 class="tm-section-title tm-color-primary">스크린샷 갤러리</h2>
+            </div>
+            <div class="col-4 text-right">
+                <a href="gallery_write.jsp" class="btn btn-primary tm-btn-primary">글쓰기</a>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                <div class="tm-article-carousel">                            
-                    <article class="tm-bg-white mr-2 tm-carousel-item">
-                        <img src="img/img-01.jpg" alt="Image" class="img-fluid">
-                        <div class="tm-article-pad">
-                            <header><h3 class="text-uppercase tm-article-title-2">조선 플레이 1880년</h3></header>
-                            <p>열강 승인 완료하고 만주로 진출한 스크린샷입니다.</p>
-                            <a href="#" class="text-uppercase btn-primary tm-btn-primary">크게 보기</a>
-                        </div>                                 
-                    </article>                    
-                    <article class="tm-bg-white mr-2 tm-carousel-item">
-                        <img src="img/img-02.jpg" alt="Image" class="img-fluid">
-                        <div class="tm-article-pad">
-                            <header><h3 class="text-uppercase tm-article-title-2">경제 GDP 1위 달성</h3></header>
-                            <p>영국을 제치고 GDP 1위를 달성했습니다. 석유가 캐리했네요.</p>
-                            <a href="#" class="text-uppercase btn-primary tm-btn-primary">상세 정보</a>
-                        </div>                                
-                    </article>
-                     <article class="tm-bg-white mr-2 tm-carousel-item">
-                        <img src="img/img-01.jpg" alt="Image" class="img-fluid">
-                        <div class="tm-article-pad">
-                            <header><h3 class="text-uppercase tm-article-title-2">독일 통일 이벤트</h3></header>
-                            <p>오스트리아를 배제하고 독일 제국을 형성했습니다.</p>
-                            <a href="#" class="text-uppercase btn-primary tm-btn-primary">공략 보기</a>
-                        </div>                                
-                    </article>
-                </div>    
+            <% for(GalleryDTO dto : list) { %>
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-4">
+                <article class="tm-bg-white mr-2 h-100">
+                    <% if(dto.getFileName() != null) { %>
+                    <div class="img-wrapper" style="height: 200px; overflow: hidden;">
+                        <img src="upload/<%= dto.getFileName() %>" alt="Image" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <% } %>
+                    
+                    <div class="tm-article-pad">
+                        <header>
+                            <h3 class="text-uppercase tm-article-title-2"><%= dto.getTitle() %></h3>
+                        </header>
+                        <p><%= dto.getContent().length() > 50 ? dto.getContent().substring(0, 50) + "..." : dto.getContent() %></p>
+                        <p class="text-muted" style="font-size: 0.8em;"><%= dto.getRegDate() %></p>
+                        <a href="#" class="text-uppercase btn-primary tm-btn-primary small">자세히 보기</a>
+                    </div>                                 
+                </article>
             </div>
+            <% } %>
             
-            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-recommended-container">
-                <div class="tm-bg-white">
-                    <div class="tm-bg-primary tm-sidebar-pad">
-                        <h3 class="tm-color-white tm-sidebar-title">추천 국가</h3>
-                        <p class="tm-color-white tm-margin-b-0 tm-font-light">이번 패치에서 떡상한 국가들</p>
-                    </div>
-                    <div class="tm-sidebar-pad-2">
-                        <a href="#" class="media tm-media tm-recommended-item">
-                            <img src="img/tn-img-01.jpg" alt="Image">
-                            <div class="media-body tm-media-body tm-bg-gray">
-                                <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">프랑스</h4>
-                            </div>                                        
-                        </a>
-                        <a href="#" class="media tm-media tm-recommended-item">
-                            <img src="img/tn-img-02.jpg" alt="Image">
-                            <div class="media-body tm-media-body tm-bg-gray">
-                                <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">일본 (막부)</h4>
-                            </div>
-                        </a>
-                        <a href="#" class="media tm-media tm-recommended-item">
-                            <img src="img/tn-img-03.jpg" alt="Image">
-                            <div class="media-body tm-media-body tm-bg-gray">
-                                <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">청나라</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>                            
+            <% if(list.size() == 0) { %>
+            <div class="col-12">
+                <p class="text-center">등록된 게시글이 없습니다.</p>
             </div>
+            <% } %>
         </div>
     </div>
 </div>
