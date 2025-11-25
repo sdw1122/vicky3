@@ -6,5 +6,4 @@
 
 <jsp:include page="gallery.jsp" />
 
-
 <jsp:include page="footer.jsp" />
