@@ -1,5 +1,6 @@
 package com.vicky.controller;
 
+import java.io.File;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +16,12 @@ import com.vicky.dto.GalleryDTO;
 public class GalleryServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String savePath = request.getServletContext().getRealPath("upload");
+        
+        File uploadDir = new File(savePath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+        
         int maxSize = 10 * 1024 * 1024; // 10MB
         String encoding = "UTF-8";
 
