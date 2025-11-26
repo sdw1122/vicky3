@@ -19,9 +19,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GeminiChatServlet extends HttpServlet {
     
     // 여기에 Google AI Studio에서 발급받은 API 키를 입력하세요
-    private static final String API_KEY = "PUT-API-KEY-HERE";
-    // 모델 변경이 필요하면 이곳을 수정 (예: gemini-1.5-pro)
-    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-preview:generateContent?key=" + API_KEY;
+    private static final String API_KEY = "AIzaSyAa1IqNEDLxgOU2gd8e7QJocAxrRqmelGw";
+    //모델 설정
+    private static final String API_MODEL = "gemini-3-pro-preview";
+    
+    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/" + API_MODEL + ":generateContent?key=" + API_KEY;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
