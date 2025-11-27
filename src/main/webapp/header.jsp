@@ -17,6 +17,10 @@
 </head>
 
 <body>
+	<%
+	    String userID = (String) session.getAttribute("userID");
+	    String userName = (String) session.getAttribute("userName");
+	%>
     <div class="tm-main-content" id="top">
         <div class="tm-top-bar-bg"></div>
         <div class="tm-top-bar" id="tm-top-bar">
@@ -36,7 +40,11 @@
                                 <li class="nav-item"><a class="nav-link" href="gallery.jsp">스크린샷</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tm-section-5">역사적 사건</a></li>
                                 <li class="nav-item"><a class="nav-link" href="company_history.jsp">역사적 기업</a></li>
-                                <li class="nav-item"><a class="nav-link" href="login.jsp">로그인</a></li>
+                                <% if (userID == null) { %>
+							        <li class="nav-item"><a class="nav-link" href="login.jsp">로그인</a></li>
+							    <% } else { %>
+							        <li class="nav-item"><a class="nav-link" href="logout.jsp">로그아웃</a></li>
+							    <% } %>
                             </ul>
                         </div>                            
                     </nav>            

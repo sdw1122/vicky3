@@ -32,3 +32,16 @@ set prosperity_effect = '+10% 행정력'
 where name = '종이 기업'
 
 select * from vicky_company where name ='종이 기업'
+
+use VickyDB;
+
+CREATE TABLE MEMBER (
+    ID VARCHAR(50) NOT NULL PRIMARY KEY,
+    PASSWD VARCHAR(50) NOT NULL,
+    NAME VARCHAR(50) NOT NULL,
+    REG_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO MEMBER (ID, PASSWD, NAME) VALUES ('admin', '1234', '관리자');
+
+select * from member

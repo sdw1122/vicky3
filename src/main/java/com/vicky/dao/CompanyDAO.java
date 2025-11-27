@@ -114,4 +114,42 @@ public class CompanyDAO {
         } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
+    
+    public List<CompanyDTO> getFavoriteCompanies(String idListStr) {
+        List<CompanyDTO> list = new ArrayList<>();
+        
+        // 쿠키 값이 없거나 비어있으면 빈 리스트 반환
+        if (idListStr == null || idListStr.trim().isEmpty()) {
+            return list;
+        }
+
+        // SQL Injection 방지를 위해 숫자와 쉼표만 남기고 필터링
+        String safeIds = idListStr.replaceAll("[^0-9,]", "");
+        if (safeIds.isEmpty()) return list;
+
+        // IN 절을 사용하여 ID 목록에 포함된 기업 조회
+        String sql = "SELECT * FROM VICKY_COMPANY WHERE ID IN (" + safeIds + ") ORDER BY COUNTRY ASC, NAME ASC";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                CompanyDTO dto = new CompanyDTO();
+                dto.setId(rs.getInt("ID"));
+                dto.setCountry(rs.getString("COUNTRY"));
+                dto.setName(rs.getString("NAME"));
+                dto.setEnglishName(rs.getString("ENGLISH_NAME"));
+                dto.setAppliedBuildings(rs.getString("APPLIED_BUILDINGS"));
+                dto.setIndustrialBuildings(rs.getString("INDUSTRIAL_BUILDINGS"));
+                dto.setLuxuryProduct(rs.getString("LUXURY_PRODUCT"));
+                dto.setProsperityEffect(rs.getString("PROSPERITY_EFFECT"));
+                list.add(dto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }

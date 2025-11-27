@@ -9,7 +9,6 @@ import com.vicky.dto.CompanyDTO;
 public class CompanyDataUploader {
 
     public static void main(String[] args) {
-        // 텍스트 파일 경로 (실제 경로에 맞게 수정 필요)
         String filePath = "src/main/webapp/upload/Victoria3_CompanyDB.txt"; 
         
         CompanyDAO dao = new CompanyDAO();
@@ -19,10 +18,8 @@ public class CompanyDataUploader {
             while ((line = br.readLine()) != null) {
                 line = line.trim();
                 
-                // 빈 줄 건너뛰기
                 if (line.isEmpty()) continue;
                 
-                // 구분자(/)로 분리 (총 7개 항목)
                 // 0:국가, 1:이름, 2:영문명, 3:적용건물, 4:산업건물, 5:상품, 6:효과
                 String[] parts = line.split("/");
                 
