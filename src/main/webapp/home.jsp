@@ -6,30 +6,50 @@
                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
                     <form action="index.jsp" method="get" class="tm-search-form tm-section-pad-2">
                         <div class="form-row tm-search-form-row">
-                            <div class="form-group tm-form-element tm-form-element-100">
-                                <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                <input name="city" type="text" class="form-control" id="inputCity" placeholder="국가 검색 (예: 조선, 영국)">
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-50">
-                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="시작 연도">
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-50">
-                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="종료 연도">
-                            </div>
-                        </div>
-                        <div class="form-row tm-search-form-row">
-                            <div class="form-group tm-form-element tm-form-element-2">                                            
-                                <select name="adult" class="form-control tm-select" id="adult">
-                                    <option value="">상품 유형</option>
-                                    <option value="1">곡물</option>
-                                    <option value="2">철</option>
-                                    <option value="3">석탄</option>
-                                </select>
-                                <i class="fa fa-2x fa-user tm-form-element-icon"></i>
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">                                            
+					        <div class="form-group tm-form-element" style="width: 20%;">
+					            <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
+					            <select name="adult" class="form-control tm-select" id="inputCity">
+					                <option value="" disabled selected hidden>국가 선택</option> 
+					                <option value="1">영국</option>
+					                <option value="2">독일</option>
+					                <option value="3">러시아</option>
+					                <option value="4">미국</option>
+					                <option value="5">프랑스</option>
+					                <option value="6">오스트리아</option>
+					                <option value="7">중국</option>
+					                <option value="8">일본</option>
+					                <option value="9">조선</option>
+					            </select>
+					        </div>
+					
+					        <div class="form-group tm-form-element" style="width: 20%;">
+					            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+					            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="시작 연도(1836~)">
+					        </div>
+					
+					        <div class="form-group tm-form-element" style="width: 20%;">
+					            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+					            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="종료 연도(~1936)">
+					        </div>
+					
+					        <div class="form-group tm-form-element" style="width: 20%;">
+					             <i class="fa fa-2x fa-user tm-form-element-icon"></i> 
+					             <select name="event_type" class="form-control tm-select" id="adult"> 
+					             	<option value="" disabled selected hidden>이벤트 유형</option>
+					                <option value="1">분쟁</option>
+					                <option value="2">전쟁</option>
+					                <option value="3">조약</option>
+					                <option value="4">사회</option>
+					                <option value="5">문화, 기술</option>
+					            </select>
+					        </div>
+					
+					        <div class="form-group tm-form-element" style="width: 20%;">
+					            <button type="submit" class="btn btn-primary tm-btn-search">검색</button>
+					        </div>
+					    </div>                        
+                            
+                            <!--<div class="form-group tm-form-element tm-form-element-2">                                            
                                 <select name="children" class="form-control tm-select" id="children">
                                     <option value="">법률</option>
                                     <option value="0">농노제</option>
@@ -45,14 +65,11 @@
                                     <option value="3">어려움</option>
                                 </select>
                                 <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <button type="submit" class="btn btn-primary tm-btn-search">데이터 검색</button>
-                            </div>
-                          </div>
+                            </div>-->
+                            
+                          
                           <div class="form-row clearfix pl-2 pr-2 tm-fx-col-xs">
-                              <p class="tm-margin-b-0">원하는 국가의 시대별 데이터를 검색해보세요.</p>
-                              <a href="#" class="ie-10-ml-auto ml-auto mt-1 tm-font-semibold tm-color-primary">사용법 안내</a>
+                              <p class="tm-margin-b-0">원하는 국가의 역사적 이벤트를 검색해 보세요.</p>
                           </div>
                     </form>
                 </div>                        

@@ -27,6 +27,7 @@ a:focus {
 .tm-margin-b-20 { margin-bottom: 20px; }
 .tm-p-4 { padding: 2rem!important; }
 .tm-color-white { color: white; }
+.tm-color-black { color: black; }
 .tm-color-primary {	color: #ee5057; }
 .tm-bg-primary { background: #ee5057; }
 .tm-bg-gray { background: #F4F4F4; }

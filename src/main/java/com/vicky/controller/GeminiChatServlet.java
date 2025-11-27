@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/chat")
 public class GeminiChatServlet extends HttpServlet {
     
-    // 여기에 Google AI Studio에서 발급받은 API 키를 입력하세요
+	// 여기에 Google AI Studio에서 발급받은 API 키를 입력하세요
     private static final String API_KEY = "put-api-key-here";
     //모델 설정
     private static final String API_MODEL = "gemini-3-pro-preview";

@@ -3,6 +3,8 @@
 <%@ page import="com.vicky.dto.GalleryDTO" %>
 <%@ page import="java.util.List" %>
 
+<jsp:include page="header.jsp" />
+
 <%
     GalleryDAO dao = new GalleryDAO();
     List<GalleryDTO> list = dao.getList();
@@ -12,7 +14,7 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-8">
-                <h2 class="tm-section-title tm-color-primary">스크린샷 갤러리</h2>
+                <h2 class="tm-section-title tm-color-primary" style="color: black;">스크린샷</h2>
             </div>
             <div class="col-4 text-right">
                 <a href="gallery_write.jsp" class="btn btn-primary tm-btn-primary">글쓰기</a>
@@ -49,3 +51,4 @@
         </div>
     </div>
 </div>
+

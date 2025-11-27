@@ -33,9 +33,9 @@
                         <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tm-section-4">스크린샷</a></li>
+                                <li class="nav-item"><a class="nav-link" href="gallery.jsp">스크린샷</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tm-section-5">정보 검색</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tm-section-6">문의하기</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tm-section-6">기업 정보</a></li>
                                 <li class="nav-item"><a class="nav-link" href="login.jsp">로그인</a></li>
                             </ul>
                         </div>                            
