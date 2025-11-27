@@ -35,7 +35,7 @@
                                 <li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
                                 <li class="nav-item"><a class="nav-link" href="gallery.jsp">스크린샷</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tm-section-5">역사적 사건</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tm-section-6">역사적 기업</a></li>
+                                <li class="nav-item"><a class="nav-link" href="company_history.jsp">역사적 기업</a></li>
                                 <li class="nav-item"><a class="nav-link" href="login.jsp">로그인</a></li>
                             </ul>
                         </div>                            

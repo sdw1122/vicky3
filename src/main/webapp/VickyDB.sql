@@ -21,3 +21,14 @@ CREATE TABLE VICKY_COMPANY (
     LUXURY_PRODUCT VARCHAR(100),
     PROSPERITY_EFFECT TEXT
 );
+
+UPDATE VICKY_COMPANY
+SET LUXURY_PRODUCT = '공예지'
+WHERE NAME = '종이 기업';
+
+SELECT * FROM vicky_company where name ='종이 기업'
+UPDATE Vicky_company
+set prosperity_effect = '+10% 행정력'
+where name = '종이 기업'
+
+select * from vicky_company where name ='종이 기업'
