@@ -152,4 +152,111 @@ public class CompanyDAO {
         return list;
     }
     
+    
+ // [추가] 새로운 기업 조합 저장 (트랜잭션 처리)
+    public boolean saveCombination(String memberId, String name, String[] companyIds) {
+        String masterSql = "INSERT INTO COMBINATION_LOG (MEMBER_ID, COMBINATION_NAME) VALUES (?, ?)";
+        String detailSql = "INSERT INTO COMBINATION_ITEMS (LOG_ID, COMPANY_ID) VALUES (?, ?)";
+        
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            // 1. 마스터 테이블(COMBINATION_LOG) 입력
+            pstmt = conn.prepareStatement(masterSql, java.sql.Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, memberId);
+            pstmt.setString(2, (name == null || name.trim().isEmpty()) ? "나만의 조합" : name);
+            pstmt.executeUpdate();
+            
+            // 생성된 LOG_ID 가져오기
+            rs = pstmt.getGeneratedKeys();
+            int logId = 0;
+            if (rs.next()) {
+                logId = rs.getInt(1);
+            }
+            rs.close();
+            pstmt.close();
+
+            // 2. 상세 테이블(COMBINATION_ITEMS) 입력
+            if (companyIds != null && companyIds.length > 0) {
+                pstmt = conn.prepareStatement(detailSql);
+                for (String companyId : companyIds) {
+                    if (companyId == null || companyId.trim().isEmpty()) continue;
+                    try {
+                        pstmt.setInt(1, logId);
+                        pstmt.setInt(2, Integer.parseInt(companyId.trim()));
+                        pstmt.addBatch();
+                    } catch (NumberFormatException nfe) { continue; }
+                }
+                pstmt.executeBatch();
+            }
+            
+            conn.commit(); // 커밋
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (conn != null) try { conn.rollback(); } catch(Exception ex) {}
+            return false;
+        } finally {
+            if (rs != null) try { rs.close(); } catch(Exception e) {}
+            if (pstmt != null) try { pstmt.close(); } catch(Exception e) {}
+            if (conn != null) try { conn.setAutoCommit(true); conn.close(); } catch(Exception e) {}
+        }
+    }
+
+    // [추가] 회원의 저장된 조합 목록 조회 (최신순)
+    public List<com.vicky.dto.CombinationDTO> getCombinationHistory(String memberId) {
+        List<com.vicky.dto.CombinationDTO> list = new ArrayList<>();
+        String sql = "SELECT * FROM COMBINATION_LOG WHERE MEMBER_ID = ? ORDER BY LOG_ID DESC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, memberId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    com.vicky.dto.CombinationDTO dto = new com.vicky.dto.CombinationDTO();
+                    dto.setLogId(rs.getInt("LOG_ID"));
+                    dto.setMemberId(rs.getString("MEMBER_ID"));
+                    dto.setCombinationName(rs.getString("COMBINATION_NAME"));
+                    dto.setRegDate(rs.getTimestamp("REG_DATE"));
+                    list.add(dto);
+                }
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+
+    // [추가] 특정 조합(LOG_ID)에 포함된 기업 리스트 조회
+    public List<CompanyDTO> getCombinationItems(int logId) {
+        List<CompanyDTO> list = new ArrayList<>();
+        String sql = "SELECT C.* FROM VICKY_COMPANY C " +
+                     "JOIN COMBINATION_ITEMS I ON C.ID = I.COMPANY_ID " +
+                     "WHERE I.LOG_ID = ? " +
+                     "ORDER BY C.COUNTRY ASC, C.NAME ASC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, logId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    CompanyDTO dto = new CompanyDTO();
+                    dto.setId(rs.getInt("ID"));
+                    dto.setCountry(rs.getString("COUNTRY"));
+                    dto.setName(rs.getString("NAME"));
+                    dto.setEnglishName(rs.getString("ENGLISH_NAME"));
+                    dto.setAppliedBuildings(rs.getString("APPLIED_BUILDINGS"));
+                    dto.setIndustrialBuildings(rs.getString("INDUSTRIAL_BUILDINGS"));
+                    dto.setLuxuryProduct(rs.getString("LUXURY_PRODUCT"));
+                    dto.setProsperityEffect(rs.getString("PROSPERITY_EFFECT"));
+                    list.add(dto);
+                }
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+    
 }

@@ -22,6 +22,11 @@ CREATE TABLE VICKY_COMPANY (
     PROSPERITY_EFFECT TEXT
 );
 
+select * from vicky_company where country = '호주'
+update vicky_company
+set country = '오스트레일리아'
+where country= '호주'
+
 UPDATE VICKY_COMPANY
 SET LUXURY_PRODUCT = '공예지'
 WHERE NAME = '종이 기업';
@@ -45,3 +50,29 @@ CREATE TABLE MEMBER (
 INSERT INTO MEMBER (ID, PASSWD, NAME) VALUES ('admin', '1234', '관리자');
 
 select * from member
+
+USE VickyDB;
+
+
+USE VickyDB;
+
+-- 1. 조합 이력 마스터 테이블 (누가, 언제, 무슨 이름으로 저장했는지)
+CREATE TABLE IF NOT EXISTS COMBINATION_LOG (
+    LOG_ID INT PRIMARY KEY AUTO_INCREMENT,
+    MEMBER_ID VARCHAR(50) NOT NULL,
+    COMBINATION_NAME VARCHAR(100),
+    REG_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER(ID) ON DELETE CASCADE
+);
+
+-- 2. 조합 상세 테이블 (어떤 조합에 어떤 기업이 포함되었는지)
+CREATE TABLE IF NOT EXISTS COMBINATION_ITEMS (
+    LOG_ID INT NOT NULL,
+    COMPANY_ID INT NOT NULL,
+    PRIMARY KEY (LOG_ID, COMPANY_ID),
+    FOREIGN KEY (LOG_ID) REFERENCES COMBINATION_LOG(LOG_ID) ON DELETE CASCADE,
+    FOREIGN KEY (COMPANY_ID) REFERENCES VICKY_COMPANY(ID) ON DELETE CASCADE
+);
+
+select * from combination_log
+select * from combination_items where LOG_ID = '1'
