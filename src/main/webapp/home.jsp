@@ -4,74 +4,7 @@
         <div class="container ie-h-align-center-fix">
             <div class="row">
                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                    <form action="index.jsp" method="get" class="tm-search-form tm-section-pad-2">
-                        <div class="form-row tm-search-form-row">
-					        <div class="form-group tm-form-element" style="width: 20%;">
-					            <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-					            <select name="adult" class="form-control tm-select" id="inputCity">
-					                <option value="" disabled selected hidden>국가 선택</option> 
-					                <option value="1">영국</option>
-					                <option value="2">독일</option>
-					                <option value="3">러시아</option>
-					                <option value="4">미국</option>
-					                <option value="5">프랑스</option>
-					                <option value="6">오스트리아</option>
-					                <option value="7">중국</option>
-					                <option value="8">일본</option>
-					                <option value="9">조선</option>
-					            </select>
-					        </div>
-					
-					        <div class="form-group tm-form-element" style="width: 20%;">
-					            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-					            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="시작 연도(1836~)">
-					        </div>
-					
-					        <div class="form-group tm-form-element" style="width: 20%;">
-					            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-					            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="종료 연도(~1936)">
-					        </div>
-					
-					        <div class="form-group tm-form-element" style="width: 20%;">
-					             <i class="fa fa-2x fa-user tm-form-element-icon"></i> 
-					             <select name="event_type" class="form-control tm-select" id="adult"> 
-					             	<option value="" disabled selected hidden>이벤트 유형</option>
-					                <option value="1">분쟁</option>
-					                <option value="2">전쟁</option>
-					                <option value="3">조약</option>
-					                <option value="4">사회</option>
-					                <option value="5">문화, 기술</option>
-					            </select>
-					        </div>
-					
-					        <div class="form-group tm-form-element" style="width: 20%;">
-					            <button type="submit" class="btn btn-primary tm-btn-search">검색</button>
-					        </div>
-					    </div>                        
-                            
-                            <!--<div class="form-group tm-form-element tm-form-element-2">                                            
-                                <select name="children" class="form-control tm-select" id="children">
-                                    <option value="">법률</option>
-                                    <option value="0">농노제</option>
-                                    <option value="1">간섭주의</option>
-                                </select>
-                                <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <select name="room" class="form-control tm-select" id="room">
-                                    <option value="">난이도</option>
-                                    <option value="1">쉬움</option>
-                                    <option value="2">보통</option>
-                                    <option value="3">어려움</option>
-                                </select>
-                                <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
-                            </div>-->
-                            
-                          
-                          <div class="form-row clearfix pl-2 pr-2 tm-fx-col-xs">
-                              <p class="tm-margin-b-0">원하는 국가의 역사적 이벤트를 검색해 보세요.</p>
-                          </div>
-                    </form>
+                    <jsp:include page="search_event_form.jsp" />
                 </div>                        
             </div>      
         </div>

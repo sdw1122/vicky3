@@ -38,7 +38,7 @@
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
                                 <li class="nav-item"><a class="nav-link" href="gallery.jsp">스크린샷</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tm-section-5">역사적 사건</a></li>
+                                <li class="nav-item"><a class="nav-link" href="historical_event.jsp">역사적 사건</a></li>
                                 <li class="nav-item"><a class="nav-link" href="company_history.jsp">역사적 기업</a></li>
                                 <% if (userID == null) { %>
 							        <li class="nav-item"><a class="nav-link" href="login.jsp">로그인</a></li>
