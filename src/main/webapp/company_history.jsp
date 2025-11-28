@@ -8,7 +8,7 @@
 <jsp:include page="header.jsp" />
 
 <%
-    // 1. 파라미터 수신 (검색 및 모드 설정)
+    //파라미터 수신
     String pCountry = request.getParameter("country");
     String pName = request.getParameter("name");
     String pApplied = request.getParameter("applied");
@@ -16,16 +16,15 @@
     String pLuxury = request.getParameter("luxuryStatus");
     String mode = request.getParameter("mode"); // 'my_fav'일 경우 나만의 조합 보기 (Basket)
 
-    // 2. 로그인 여부 확인
+    //로그인 여부 확인
     String memberId = (String) session.getAttribute("userID");
 
     CompanyDAO dao = new CompanyDAO();
     List<String> countryList = dao.getCountryList(); // 검색창 국가 옵션용
     List<CompanyDTO> list = null;
 
-    // 3. 데이터 조회 로직 분기
+    //데이터 조회
     if ("my_fav".equals(mode)) {
-        // [CASE A] 나만의 조합 보기 (Basket) 모드: 쿠키에서 목록 조회
         String favIds = "";
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -38,7 +37,6 @@
         }
         list = dao.getFavoriteCompanies(favIds);
     } else {
-        // [CASE B] 일반 검색 모드 (기존 기능)
         list = dao.searchCompanies(pCountry, pName, pApplied, pIndustrial, pLuxury);
     }
 %>
@@ -203,7 +201,7 @@
 </div>
 
 <script>
-    // 1. 쿠키 설정/조회 함수 (기존 유지)
+    //쿠키 설정/조회 함수
     function setCookie(name, value, days) {
         var expires = "";
         if (days) {
@@ -225,7 +223,7 @@
         return null;
     }
 
-    // 2. 페이지 로드 시 '담기' 상태 복원
+    //페이지 로드 시 담기 상태 복원
     window.onload = function() {
         var savedIds = getCookie("myFavCompanies");
         if (savedIds) {
@@ -241,7 +239,7 @@
         }
     };
 
-    // 3. '담기' 체크박스 클릭 시 쿠키 업데이트 (Basket 기능)
+    //담기 체크박스 클릭 시 쿠키 업데이트
     function toggleCookie(checkbox) {
         var checkedBoxes = document.querySelectorAll('input[name="selectedCompany"]:checked');
         var idList = [];
@@ -249,7 +247,7 @@
         setCookie("myFavCompanies", encodeURIComponent(idList.join(",")), 30);
     }
 
-    // 4. '저장하기' 버튼 클릭 시 유효성 검사 (Basket 화면에서 실행)
+    //저장하기 버튼 클릭 시 유효성 검사
     function validateSelection() {
         <% if(memberId == null) { %>
             alert("로그인 후 조합을 저장할 수 있습니다.");

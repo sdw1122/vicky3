@@ -17,14 +17,14 @@ public class EventDataUploader {
                 line = line.trim();
                 if (line.isEmpty() || line.startsWith("[source")) continue;
 
-                // 형식: 국가/연도/이벤트명/대상/유형
+                //국가/연도/이벤트명/대상/유형
                 String[] parts = line.split("/");
                 if (parts.length >= 5) {
                     HistoricalEventDTO dto = new HistoricalEventDTO();
                     dto.setCountry(parts[0].trim());
                     try {
                         dto.setYear(Integer.parseInt(parts[1].trim()));
-                    } catch (NumberFormatException e) { continue; } // 연도 오류시 스킵
+                    } catch (NumberFormatException e) { continue; }
                     dto.setEventName(parts[2].trim());
                     dto.setTarget(parts[3].trim());
                     dto.setEventType(parts[4].trim());

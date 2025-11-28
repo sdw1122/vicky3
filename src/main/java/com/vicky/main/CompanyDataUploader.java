@@ -20,7 +20,6 @@ public class CompanyDataUploader {
                 
                 if (line.isEmpty()) continue;
                 
-                // 0:국가, 1:이름, 2:영문명, 3:적용건물, 4:산업건물, 5:상품, 6:효과
                 String[] parts = line.split("/");
                 
                 if (parts.length >= 7) {

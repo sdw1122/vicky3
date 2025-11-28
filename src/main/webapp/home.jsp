@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="tm-section tm-bg-img" id="tm-section-1">
-    <div class="tm-bg-white ie-container-width-fix-2">
+                      
+</div>
+
+<div class="tm-section-2">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="tm-section-title">Vicky Archive에 오신 것을 환영합니다</h2>
+                <br>
+                <br>
+            </div>                
+        </div>
+    </div>        
+</div>
+
+<br>
+<div class="tm-bg-white ie-container-width-fix-2">
         <div class="container ie-h-align-center-fix">
             <div class="row">
                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
@@ -8,26 +24,9 @@
                 </div>                        
             </div>      
         </div>
-    </div>                  
-</div>
-
-<div class="tm-section-2">
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h2 class="tm-section-title">Vic3 Archive에 오신 것을 환영합니다</h2>
-                <p class="tm-color-white tm-section-subtitle">최신 공략과 패치 노트를 받아보세요</p>
-                <a href="#" class="tm-color-white tm-btn-white-bordered">뉴스레터 구독</a>
-            </div>                
-        </div>
-    </div>        
-</div>
-
-
+    </div>
+<br>
 <div class="tm-section tm-position-relative">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="tm-section-down-arrow">
-        <polygon fill="#ee5057" points="0,0  100,0  50,60"></polygon>                   
-    </svg> 
     <div class="container tm-pt-5 tm-pb-4">
         <div class="row text-center">
             <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">                            
