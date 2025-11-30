@@ -35,7 +35,7 @@
 
 <fmt:bundle basename="bundle.message">
 
-<form action="historical_event.jsp" method="get" class="tm-search-form tm-section-pad-2">
+<form action="historical_event.jsp" method="post" class="tm-search-form tm-section-pad-2">
     <div class="form-row tm-search-form-row">
         <div class="form-group tm-form-element tm-form-element-20">
             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>

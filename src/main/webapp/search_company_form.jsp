@@ -27,7 +27,7 @@
 
 <fmt:bundle basename="bundle.message">
 
-<form action="company_history.jsp" method="get" class="tm-search-form tm-section-pad-2">
+<form action="company_history.jsp" method="post" class="tm-search-form tm-section-pad-2">
     <div class="form-row tm-search-form-row">
         <div class="form-group tm-form-element tm-form-element-2">
             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>

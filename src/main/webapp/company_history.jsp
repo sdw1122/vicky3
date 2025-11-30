@@ -77,7 +77,7 @@
             <div class="col-md-12">
                 
                 <% if ("my_fav".equals(mode)) { %>
-                    <h2 class="tm-section-title tm-color-primary mb-5 text-center">Selected Companies (Basket)</h2>
+                    <h2 class="tm-section-title tm-color-primary mb-5 text-center" style="color:black">선택된 기업 리스트</h2>
                     <p class="text-center">이 중에서 <strong>최대 6개</strong>를 선택하여 조합을 저장하세요.</p>
                 <% } else { %>
                     <h2 class="tm-section-title tm-color-primary mb-5 text-center navbar-brand mr-auto" style="color: black">빅토리아3 기업 리스트</h2>

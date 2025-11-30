@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-        
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+    .tm-main-content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    footer {
+        margin-top: auto;
+    }
+</style>       
         <footer class="tm-bg-dark-blue">
             <div class="container">
                 <div class="row">
