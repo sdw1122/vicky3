@@ -17,7 +17,6 @@
         return;
     }
     
-    // DAO를 통해 저장된 조합 목록 가져오기
     CompanyDAO companyDao = new CompanyDAO();
     List<CombinationDTO> myCombs = companyDao.getCombinationHistory(userID);
 %>
@@ -36,18 +35,15 @@
     <link rel="stylesheet" href="css/tooplate-style.css">
     
     <script>
-        // 조합 선택 시 본문에 내용 자동 입력하는 함수
         function loadCombination() {
             var select = document.getElementById("combinationSelect");
             var selectedOption = select.options[select.selectedIndex];
             
             if (selectedOption.value === "") return;
 
-            // data-info 속성에서 조합 정보 가져오기
             var combInfo = selectedOption.getAttribute("data-info");
             var contentArea = document.getElementById("content");
 
-            // 본문에 내용 추가
             if(contentArea.value.trim() !== "") {
                 if(confirm("본문 내용 뒤에 선택한 조합 정보를 추가하시겠습니까?")) {
                     contentArea.value += "\n\n" + combInfo;
@@ -90,7 +86,7 @@
                                     <%
                                         if (myCombs != null && !myCombs.isEmpty()) {
                                             for (CombinationDTO comb : myCombs) {
-                                                // 각 조합별 상세 아이템(기업) 가져오기
+                                                // 각 조합별 기업 가져오기
                                                 List<CompanyDTO> items = companyDao.getCombinationItems(comb.getLogId());
                                                 
                                                 // 본문에 넣을 텍스트 생성

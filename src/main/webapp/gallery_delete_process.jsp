@@ -4,12 +4,10 @@
 <%@ page import="java.io.File" %>
 
 <%
-    // 1. 파라미터 받기
     String noStr = request.getParameter("no");
     int no = 0;
     if(noStr != null) no = Integer.parseInt(noStr);
 
-    // 2. 권한 검증 (주소창 입력으로 삭제 시도 방지)
     String loginId = (String) session.getAttribute("userID");
     GalleryDAO dao = new GalleryDAO();
     GalleryDTO dto = dao.getGallery(no);
@@ -24,7 +22,6 @@
         return;
     }
 
-    // 글쓴이 ID와 로그인 ID가 다르면 차단 (관리자라면 || "admin".equals(loginId) 추가 가능)
     if (loginId == null || !loginId.equals(dto.getWriterId())) {
 %>
         <script>
@@ -35,7 +32,6 @@
         return;
     }
 
-    // 3. 첨부 파일 삭제 (서버 용량 관리)
     if (dto.getFileName() != null) {
         String savePath = request.getServletContext().getRealPath("upload");
         File file = new File(savePath + File.separator + dto.getFileName());
@@ -44,7 +40,6 @@
         }
     }
 
-    // 4. DB 데이터 삭제
     int result = dao.deleteGallery(no);
 
     if(result > 0) {

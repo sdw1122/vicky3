@@ -10,7 +10,7 @@
     GalleryDAO dao = new GalleryDAO();
     List<GalleryDTO> list = dao.getList();
     
-    // 날짜 포맷팅을 위한 객체 (예: 2023-10-25)
+    // 날짜
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 

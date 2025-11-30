@@ -38,7 +38,6 @@ public class HistoricalEventDAO {
         StringBuilder sql = new StringBuilder("SELECT * FROM VICTORIA_EVENTS WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
-        // 1. 국가 필터 (home.jsp의 value 값 매핑)
         if (countryId != null && !countryId.isEmpty()) {
             String countryName = getCountryName(countryId);
             if (countryName != null) {
@@ -47,7 +46,6 @@ public class HistoricalEventDAO {
             }
         }
 
-        // 2. 연도 범위 필터
         if (startYear != null && !startYear.isEmpty()) {
             sql.append(" AND YEAR >= ?");
             params.add(Integer.parseInt(startYear));
@@ -57,7 +55,6 @@ public class HistoricalEventDAO {
             params.add(Integer.parseInt(endYear));
         }
 
-        // 3. 이벤트 유형 필터 (home.jsp의 value 값 매핑)
         if (typeId != null && !typeId.isEmpty()) {
             String typeName = getTypeName(typeId);
             if (typeName != null) {

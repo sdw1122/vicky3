@@ -19,8 +19,6 @@
 </div>
 
 <%
-    // 파라미터 수신 (검색 결과 조회용)
-    // search_form.jsp 내부의 파라미터 수신은 화면 표시용이고, 여기서는 실제 DB 조회를 위해 다시 받습니다.
     String countryId = request.getParameter("adult");     
     String startYear = request.getParameter("check-in");  
     String endYear = request.getParameter("check-out");   

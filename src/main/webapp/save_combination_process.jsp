@@ -3,7 +3,6 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
-    // 1. 로그인 확인
     String memberId = (String) session.getAttribute("userID");
     if (memberId == null) {
         %>
@@ -15,11 +14,9 @@
         return;
     }
 
-    // 2. 파라미터 수신
     String combName = request.getParameter("combinationName");
     String[] selectedIds = request.getParameterValues("finalSelection");
 
-    // 3. 유효성 검사
     if (selectedIds == null || selectedIds.length == 0) {
         %>
         <script>
@@ -40,13 +37,11 @@
         return;
     }
 
-    // 4. 저장 수행
     CompanyDAO dao = new CompanyDAO();
     boolean result = dao.saveCombination(memberId, combName, selectedIds);
 
-    // 5. 결과 이동
     if (result) {
-        response.sendRedirect("my_combinations.jsp"); // 저장된 목록 페이지로 이동
+        response.sendRedirect("my_combinations.jsp");
     } else {
         %>
         <script>

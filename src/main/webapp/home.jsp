@@ -3,6 +3,22 @@
 <%@ page import="com.vicky.dto.GalleryDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%
+    String language = request.getParameter("language");
+    if(language != null && !language.isEmpty()) {
+        session.setAttribute("language", language);
+    } 
+    else {
+        language = (String) session.getAttribute("language");
+        if(language == null) {
+            language = "ko";
+        }
+    }
+%>
+<fmt:setLocale value="<%=language %>" />
+<fmt:bundle basename="bundle.message">
 
 <%
     // 갤러리 데이터 가져오기
@@ -14,17 +30,17 @@
 
 <div class="tm-section-2">
     <div class="container">
+        
+
         <div class="row">
             <div class="col text-center">
-                <h2 class="tm-section-title">Vicky Archive에 오신 것을 환영합니다</h2>
-                <p class="tm-color-white tm-section-subtitle">빅토리아 3의 모든 역사와 기록을 한눈에</p>
+                <h2 class="tm-section-title"><fmt:message key="welcome.title" /></h2>
+                <p class="tm-color-white tm-section-subtitle"><fmt:message key="welcome.subtitle" /></p>
                 <br><br>
             </div>              
         </div>
     </div>        
 </div>
-
-
 
 <br>
 
@@ -32,8 +48,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="tm-section-title-2 tm-color-primary tm-margin-b-20">게시판</h2>
-                <p class="tm-margin-b-20">유저들이 공유한 생생한 빅토리아 3 스크린샷을 확인하세요.</p>
+                <h2 class="tm-section-title-2 tm-color-primary tm-margin-b-20"><fmt:message key="board.title" /></h2>
+                <p class="tm-margin-b-20"><fmt:message key="board.desc" /></p>
             </div>
         </div>
 
@@ -58,10 +74,10 @@
                         <a href="gallery_view.jsp?no=<%= dto.getNo() %>" class="tm-color-black"><%= dto.getTitle() %></a>
                     </h3>
                     <p class="tm-font-light" style="font-size: 0.9rem;">
-                        작성자: <%= dto.getWriter() %><br>
-                        등록일: <%= dto.getRegDate() %>
+                        <fmt:message key="board.author" /> <%= dto.getWriter() %><br>
+                        <fmt:message key="board.date" /> <%= dto.getRegDate() %>
                     </p>
-                    <a href="gallery_view.jsp?no=<%= dto.getNo() %>" class="text-uppercase tm-color-primary tm-font-semibold">자세히 보기</a>
+                    <a href="gallery_view.jsp?no=<%= dto.getNo() %>" class="text-uppercase tm-color-primary tm-font-semibold"><fmt:message key="board.readmore" /></a>
                 </div>
             </div>
             <%
@@ -70,7 +86,7 @@
                 } else {
             %>
             <div class="col-12 text-center">
-                <p>등록된 갤러리 게시물이 없습니다.</p>
+                <p><fmt:message key="board.empty" /></p>
             </div>
             <%
                 }
@@ -79,7 +95,7 @@
         
         <div class="row">
             <div class="col-12 text-center tm-margin-t-20" style="margin-top: 30px;">
-                <a href="gallery.jsp" class="btn btn-primary">게시판 전체보기</a>
+                <a href="gallery.jsp" class="btn btn-primary"><fmt:message key="btn.viewall" /></a>
             </div>
         </div>
     </div>
@@ -115,25 +131,26 @@
             
             <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">                            
                 <i class="fa tm-fa-6x fa-camera-retro tm-color-primary tm-margin-b-20"></i>
-                <h3 class="tm-color-primary tm-article-title-1">스크린샷</h3>
-                <p>더 많은 제국의 영광스러운 순간들을 갤러리에서 감상하세요.</p>
-                <a href="gallery.jsp" class="text-uppercase tm-color-primary tm-font-semibold">이동하기...</a>
+                <h3 class="tm-color-primary tm-article-title-1"><fmt:message key="section.screenshot.title" /></h3>
+                <p><fmt:message key="section.screenshot.desc" /></p>
+                <a href="gallery.jsp" class="text-uppercase tm-color-primary tm-font-semibold"><fmt:message key="link.go" /></a>
             </article>
             
-            <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">                            
+            <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">            
                 <i class="fa tm-fa-6x fa-building tm-color-primary tm-margin-b-20"></i>
-                <h3 class="tm-color-primary tm-article-title-1">역사적 기업</h3>
-                <p>빅토리아 시대에 실존했던 기업들의 인게임 정보를 조회합니다.</p>
-                <a href="company_history.jsp" class="text-uppercase tm-color-primary tm-font-semibold">이동하기...</a>
+                <h3 class="tm-color-primary tm-article-title-1"><fmt:message key="section.company.title" /></h3>
+                <p><fmt:message key="section.company.desc" /></p>
+                <a href="company_history.jsp" class="text-uppercase tm-color-primary tm-font-semibold"><fmt:message key="link.go" /></a>
             </article>
             
             <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">                           
                 <i class="fa tm-fa-6x fa-history tm-color-primary tm-margin-b-20"></i>
-                <h3 class="tm-color-primary tm-article-title-1">역사적 이벤트</h3>
-                <p>게임 내 등장하는 주요 역사적 사건들의 발동 조건과 효과를 확인하세요.</p>
-                <a href="historical_event.jsp" class="text-uppercase tm-color-primary tm-font-semibold">이동하기...</a>                           
+                <h3 class="tm-color-primary tm-article-title-1"><fmt:message key="section.event.title" /></h3>
+                <p><fmt:message key="section.event.desc" /></p>
+                <a href="historical_event.jsp" class="text-uppercase tm-color-primary tm-font-semibold"><fmt:message key="link.go" /></a>                           
             </article>
 
-        </div>        
+        </div>         
     </div>
 </div>
+</fmt:bundle>

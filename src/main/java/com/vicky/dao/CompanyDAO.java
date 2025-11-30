@@ -9,7 +9,6 @@ import java.util.List;
 import com.vicky.dto.CompanyDTO;
 
 public class CompanyDAO {
-    // DB 연결 정보 (기존 유지)
     private final String URL = "jdbc:mysql://localhost:3306/VickyDB?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
     private final String UID = "root";
     private final String PWD = "1234";
@@ -20,7 +19,6 @@ public class CompanyDAO {
     }
     
     public void insertCompany(CompanyDTO dto) {
-        // ENGLISH_NAME 컬럼 추가
         String sql = "INSERT INTO VICKY_COMPANY (COUNTRY, NAME, ENGLISH_NAME, APPLIED_BUILDINGS, INDUSTRIAL_BUILDINGS, LUXURY_PRODUCT, PROSPERITY_EFFECT) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = getConnection();
@@ -43,7 +41,6 @@ public class CompanyDAO {
         }
     }
 
-    // [추가] 국가 목록 조회 (Select 박스용)
     public List<String> getCountryList() {
         List<String> list = new ArrayList<>();
         String sql = "SELECT DISTINCT COUNTRY FROM VICKY_COMPANY ORDER BY COUNTRY ASC";
@@ -57,7 +54,6 @@ public class CompanyDAO {
         return list;
     }
 
-    // [수정] 검색 기능 (고품격 상품 유무 필터 추가)
     public List<CompanyDTO> searchCompanies(String country, String name, String applied, String industrial, String luxuryStatus) {
         List<CompanyDTO> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM VICKY_COMPANY WHERE 1=1");
@@ -118,16 +114,13 @@ public class CompanyDAO {
     public List<CompanyDTO> getFavoriteCompanies(String idListStr) {
         List<CompanyDTO> list = new ArrayList<>();
         
-        // 쿠키 값이 없거나 비어있으면 빈 리스트 반환
         if (idListStr == null || idListStr.trim().isEmpty()) {
             return list;
         }
 
-        // SQL Injection 방지를 위해 숫자와 쉼표만 남기고 필터링
         String safeIds = idListStr.replaceAll("[^0-9,]", "");
         if (safeIds.isEmpty()) return list;
 
-        // IN 절을 사용하여 ID 목록에 포함된 기업 조회
         String sql = "SELECT * FROM VICKY_COMPANY WHERE ID IN (" + safeIds + ") ORDER BY COUNTRY ASC, NAME ASC";
 
         try (Connection conn = getConnection();
@@ -153,7 +146,6 @@ public class CompanyDAO {
     }
     
     
- // [추가] 새로운 기업 조합 저장 (트랜잭션 처리)
     public boolean saveCombination(String memberId, String name, String[] companyIds) {
         String masterSql = "INSERT INTO COMBINATION_LOG (MEMBER_ID, COMBINATION_NAME) VALUES (?, ?)";
         String detailSql = "INSERT INTO COMBINATION_ITEMS (LOG_ID, COMPANY_ID) VALUES (?, ?)";
@@ -164,15 +156,13 @@ public class CompanyDAO {
         
         try {
             conn = getConnection();
-            conn.setAutoCommit(false); // 트랜잭션 시작
+            conn.setAutoCommit(false);
 
-            // 1. 마스터 테이블(COMBINATION_LOG) 입력
             pstmt = conn.prepareStatement(masterSql, java.sql.Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, memberId);
             pstmt.setString(2, (name == null || name.trim().isEmpty()) ? "나만의 조합" : name);
             pstmt.executeUpdate();
             
-            // 생성된 LOG_ID 가져오기
             rs = pstmt.getGeneratedKeys();
             int logId = 0;
             if (rs.next()) {
@@ -181,7 +171,6 @@ public class CompanyDAO {
             rs.close();
             pstmt.close();
 
-            // 2. 상세 테이블(COMBINATION_ITEMS) 입력
             if (companyIds != null && companyIds.length > 0) {
                 pstmt = conn.prepareStatement(detailSql);
                 for (String companyId : companyIds) {
@@ -195,7 +184,7 @@ public class CompanyDAO {
                 pstmt.executeBatch();
             }
             
-            conn.commit(); // 커밋
+            conn.commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,7 +197,6 @@ public class CompanyDAO {
         }
     }
 
-    // [추가] 회원의 저장된 조합 목록 조회 (최신순)
     public List<com.vicky.dto.CombinationDTO> getCombinationHistory(String memberId) {
         List<com.vicky.dto.CombinationDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM COMBINATION_LOG WHERE MEMBER_ID = ? ORDER BY LOG_ID DESC";
@@ -230,7 +218,6 @@ public class CompanyDAO {
         return list;
     }
 
-    // [추가] 특정 조합(LOG_ID)에 포함된 기업 리스트 조회
     public List<CompanyDTO> getCombinationItems(int logId) {
         List<CompanyDTO> list = new ArrayList<>();
         String sql = "SELECT C.* FROM VICKY_COMPANY C " +

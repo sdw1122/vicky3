@@ -6,21 +6,17 @@
 <jsp:include page="header.jsp" />
 
 <%
-    // 1. 파라미터 받기
     int no = 0;
     try {
         no = Integer.parseInt(request.getParameter("no"));
     } catch (NumberFormatException e) {
-        // 번호가 없거나 이상하면 목록으로 보내기
         response.sendRedirect("gallery.jsp");
         return;
     }
 
-    // 2. DB에서 데이터 가져오기
     GalleryDAO dao = new GalleryDAO();
     GalleryDTO dto = dao.getGallery(no);
     String loginId = (String) session.getAttribute("userID");
-    // 3. 게시글이 없으면 삭제된 글이라고 알림
     if (dto == null) {
 %>
         <script>
@@ -31,7 +27,6 @@
         return;
     }
     
-    // 날짜 포맷
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 

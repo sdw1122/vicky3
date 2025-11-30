@@ -4,8 +4,22 @@
 <%@ page import="com.vicky.dto.CompanyDTO"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URLDecoder" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="header.jsp" />
+
+<%
+    String language = request.getParameter("language");
+    if(language != null && !language.isEmpty()) {
+        session.setAttribute("language", language);
+    } else {
+        language = (String) session.getAttribute("language");
+        if(language == null) language = "ko";
+    }
+%>
+
+<fmt:setLocale value="<%=language %>" />
+<fmt:bundle basename="bundle.message">
 
 <%
     //파라미터 수신
@@ -14,13 +28,13 @@
     String pApplied = request.getParameter("applied");
     String pIndustrial = request.getParameter("industrial");
     String pLuxury = request.getParameter("luxuryStatus");
-    String mode = request.getParameter("mode"); // 'my_fav'일 경우 나만의 조합 보기 (Basket)
+    String mode = request.getParameter("mode");
 
     //로그인 여부 확인
     String memberId = (String) session.getAttribute("userID");
 
     CompanyDAO dao = new CompanyDAO();
-    List<String> countryList = dao.getCountryList(); // 검색창 국가 옵션용
+    List<String> countryList = dao.getCountryList();
     List<CompanyDTO> list = null;
 
     //데이터 조회
@@ -232,5 +246,5 @@
         return confirm("선택한 " + checked.length + "개 기업으로 조합을 저장하시겠습니까?");
     }
 </script>
-
+</fmt:bundle>
 <jsp:include page="footer.jsp" />

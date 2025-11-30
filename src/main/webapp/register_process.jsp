@@ -17,7 +17,6 @@
         out.println("history.back();");
         out.println("</script>");
     } else {
-        // 중복이 아니면 회원 정보 저장
         MemberDTO dto = new MemberDTO();
         dto.setId(id);
         dto.setPasswd(passwd);
@@ -25,7 +24,6 @@
 
         dao.insertMember(dto);
 
-        // 가입 완료 후 로그인 페이지로 이동
         out.println("<script>");
         out.println("alert('회원가입이 완료되었습니다! 로그인해주세요.');");
         out.println("location.href='login.jsp';");

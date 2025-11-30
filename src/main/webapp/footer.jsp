@@ -17,7 +17,6 @@
     
     <script>
         $(document).ready(function(){
-            // 스크롤 시 네비게이션 바 색상 변경
             $(window).on("scroll", function() {
                 if($(window).scrollTop() > 100) {
                     $(".tm-top-bar").addClass("active");
@@ -26,12 +25,10 @@
                 }
             });
             
-            // 모바일 메뉴 닫기
             $('.nav-link').click(function(){
                 $('#mainNav').removeClass('show');
             });
 
-            // 저작권 연도 자동 업데이트
             $('.tm-current-year').text(new Date().getFullYear());
         });
     </script>

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import com.vicky.dto.MemberDTO;
 
 public class MemberDAO {
-    // DB 연결 정보 (CompanyDAO와 동일)
     private final String URL = "jdbc:mysql://localhost:3306/VickyDB?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
     private final String UID = "root";
     private final String PWD = "1234";
@@ -17,8 +16,6 @@ public class MemberDAO {
         return DriverManager.getConnection(URL, UID, PWD);
     }
 
-    // 로그인 인증 메소드
-    // 반환값: 1(로그인 성공), 0(비밀번호 불일치), -1(아이디 없음)
     public int login(String id, String passwd) {
         String sql = "SELECT PASSWD FROM MEMBER WHERE ID = ?";
         try (Connection conn = getConnection();
@@ -27,14 +24,13 @@ public class MemberDAO {
             pstmt.setString(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    // 아이디 존재, 비밀번호 비교
                     if (rs.getString("PASSWD").equals(passwd)) {
                         return 1; // 로그인 성공
                     } else {
-                        return 0; // 비밀번호 불일치
+                        return 0;
                     }
                 }
-                return -1; // 아이디 없음
+                return -1;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +38,6 @@ public class MemberDAO {
         return -2; // DB 오류
     }
 
-    // 회원 이름 가져오기 (로그인 성공 후 세션 등에 저장용)
     public String getUserName(String id) {
         String name = null;
         String sql = "SELECT NAME FROM MEMBER WHERE ID = ?";
@@ -74,7 +69,6 @@ public class MemberDAO {
         }
     }
 
-    // [추가] 아이디 중복 확인 메소드 (중복이면 true, 아니면 false 반환)
     public boolean confirmId(String id) {
         String sql = "SELECT ID FROM MEMBER WHERE ID = ?";
         try (Connection conn = getConnection();

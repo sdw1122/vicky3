@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <style>
-    /* 챗봇 스타일 정의 */
     #chatbot-btn {
         position: fixed;
         bottom: 20px;
@@ -9,7 +8,7 @@
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background-color: #ee5057; /* 테마 색상 */
+        background-color: #ee5057;
         color: white;
         border: none;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -92,14 +91,14 @@
     .user-message {
         background-color: #ee5057;
         color: white;
-        margin-left: auto; /* 오른쪽 정렬 */
+        margin-left: auto;
         border-bottom-right-radius: 0;
     }
 
     .bot-message {
         background-color: #e9ecef;
         color: #333;
-        margin-right: auto; /* 왼쪽 정렬 */
+        margin-right: auto;
         border-bottom-left-radius: 0;
     }
     
@@ -157,11 +156,9 @@
         messageDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
         messageDiv.innerText = text;
         
-        // 로딩 표시 바로 위에 삽입
         var loadingDiv = document.getElementById('loading');
         chatBody.insertBefore(messageDiv, loadingDiv);
         
-        // 스크롤 하단으로 이동
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
@@ -171,14 +168,11 @@
         
         if (message === "") return;
 
-        // 1. 사용자 메시지 화면에 표시
         appendMessage(message, 'user');
         inputField.value = '';
         
-        // 2. 로딩 표시
         document.getElementById('loading').style.display = 'block';
 
-        // 3. AJAX 요청 (Servlet으로 전송)
         $.ajax({
             type: "POST",
             url: "chat", // web.xml이나 @WebServlet에 정의된 URL 패턴
@@ -187,8 +181,6 @@
             success: function(response) {
                 document.getElementById('loading').style.display = 'none';
                 
-                // Gemini API 응답 구조 파싱
-                // 구조: candidates[0].content.parts[0].text
                 if (response.candidates && response.candidates.length > 0) {
                     var botReply = response.candidates[0].content.parts[0].text;
                     appendMessage(botReply, 'bot');
