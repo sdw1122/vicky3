@@ -27,16 +27,14 @@
              return false;
         }
 
-        // 3. 이름 체크 (한글 여부 - Ch08 정규식 활용)
-        // 정규식: 한글만 입력 가능하도록 설정
         var regExpName = /^[가-힣]*$/;
         if (name == "") {
-            alert("이름을 입력해주세요.");
+            alert("닉네임을 입력해주세요.");
             form.name.focus();
             return false;
         }
         if (!regExpName.test(name)) {
-            alert("이름은 한글만 입력해주세요!");
+            alert("닉네임은 한글만 입력해주세요!");
             form.name.select();
             return false;
         }

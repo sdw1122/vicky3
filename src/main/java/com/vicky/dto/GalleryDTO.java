@@ -7,6 +7,7 @@ public class GalleryDTO {
     private String title;
     private String content;
     private String fileName;
+    private String writer; // 작성자 필드 추가
     private Timestamp regDate;
 
     public int getNo() { return no; }
@@ -17,6 +18,8 @@ public class GalleryDTO {
     public void setContent(String content) { this.content = content; }
     public String getFileName() { return fileName; }
     public void setFileName(String fileName) { this.fileName = fileName; }
+    public String getWriter() { return writer; } // Getter 추가
+    public void setWriter(String writer) { this.writer = writer; } // Setter 추가
     public Timestamp getRegDate() { return regDate; }
     public void setRegDate(Timestamp regDate) { this.regDate = regDate; }
 }

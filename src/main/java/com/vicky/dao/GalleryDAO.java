@@ -35,7 +35,8 @@ public class GalleryDAO {
     // 게시글 목록 조회
     public List<GalleryDTO> getList() {
         List<GalleryDTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM GALLERY_BOARD ORDER BY NO DESC";
+        // WRITER 컬럼 추가 조회
+        String sql = "SELECT NO, TITLE, CONTENT, FILENAME, WRITER, REGDATE FROM GALLERY_BOARD ORDER BY NO DESC";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -45,6 +46,7 @@ public class GalleryDAO {
                 dto.setTitle(rs.getString("TITLE"));
                 dto.setContent(rs.getString("CONTENT"));
                 dto.setFileName(rs.getString("FILENAME"));
+                dto.setWriter(rs.getString("WRITER")); // 작성자 매핑 추가
                 dto.setRegDate(rs.getTimestamp("REGDATE"));
                 list.add(dto);
             }
@@ -52,5 +54,34 @@ public class GalleryDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+ // 게시글 상세 조회 (이 메서드를 GalleryDAO 클래스 안에 추가하세요)
+    public GalleryDTO getGallery(int no) {
+        GalleryDTO dto = null;
+        // WRITER 컬럼도 가져오도록 쿼리 작성 (이전 단계에서 컬럼을 추가했다고 가정)
+        String sql = "SELECT * FROM GALLERY_BOARD WHERE NO = ?";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, no);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    dto = new GalleryDTO();
+                    dto.setNo(rs.getInt("NO"));
+                    dto.setTitle(rs.getString("TITLE"));
+                    // 줄바꿈 처리를 위해 꺼낼 때 변환하거나 view에서 처리할 수 있음
+                    dto.setContent(rs.getString("CONTENT")); 
+                    dto.setFileName(rs.getString("FILENAME"));
+                    dto.setWriter(rs.getString("WRITER")); // 작성자
+                    dto.setRegDate(rs.getTimestamp("REGDATE"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dto;
     }
 }
