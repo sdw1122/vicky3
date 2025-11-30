@@ -4,7 +4,7 @@ public class CompanyDTO {
     private int id;
     private String country;
     private String name;
-    private String englishName; // 추가된 필드
+    private String englishName;
     private String appliedBuildings;
     private String industrialBuildings;
     private String luxuryProduct;
