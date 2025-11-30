@@ -35,7 +35,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="tm-section-title">검색 결과</h2>
+          		<br>
+                <h2 class="tm-section-title tm-color-primary mb-5 text-center navbar-brand mr-auto" style="color: black">역사적 이벤트</h2>
+                <br>
                 <% if(events.isEmpty()) { %>
                     <p class="text-center">조건에 맞는 이벤트가 없습니다.</p>
                 <% } else { %>

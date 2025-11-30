@@ -19,7 +19,7 @@
     // 2. DB에서 데이터 가져오기
     GalleryDAO dao = new GalleryDAO();
     GalleryDTO dto = dao.getGallery(no);
-
+    String loginId = (String) session.getAttribute("userID");
     // 3. 게시글이 없으면 삭제된 글이라고 알림
     if (dto == null) {
 %>
@@ -65,10 +65,24 @@
                 
                 <div class="text-right mt-5 pt-3 border-top">
                     <a href="gallery.jsp" class="btn btn-secondary tm-btn-gray">목록</a>
-                    </div>
+                    <% 
+                       // 로그인한 ID와 글쓴이 ID가 같을 때만 삭제 버튼 표시
+                       if (loginId != null && dto.getWriterId() != null && loginId.equals(dto.getWriterId())) { 
+                    %>
+                        <a href="javascript:deletePost(<%= dto.getNo() %>)" class="btn btn-danger">삭제</a>
+                    <% } %>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function deletePost(no) {
+        if(confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
+            location.href = "gallery_delete_process.jsp?no=" + no;
+        }
+    }
+</script>
 
 <jsp:include page="footer.jsp" />

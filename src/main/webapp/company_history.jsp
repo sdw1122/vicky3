@@ -47,44 +47,9 @@
         <div class="container ie-h-align-center-fix">
             <div class="row">
                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                    <form action="company_history.jsp" method="get" class="tm-search-form tm-section-pad-2">
-                        <div class="form-row tm-search-form-row">
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                <select name="country" class="form-control tm-select">
-                                    <option value="ALL">전체 국가</option>
-                                    <% for(String c : countryList) { %>
-                                        <option value="<%= c %>" <%= c.equals(pCountry) ? "selected" : "" %>><%= c %></option>
-                                    <% } %>
-                                </select>
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <i class="fa fa-diamond fa-2x tm-form-element-icon"></i>
-                                <select name="luxuryStatus" class="form-control tm-select">
-                                    <option value="ALL">고품격 상품 (전체)</option>
-                                    <option value="Y" <%= "Y".equals(pLuxury) ? "selected" : "" %>>있음</option>
-                                    <option value="N" <%= "N".equals(pLuxury) ? "selected" : "" %>>없음</option>
-                                </select>
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <i class="fa fa-building fa-2x tm-form-element-icon"></i>
-                                <input name="name" type="text" class="form-control" placeholder="기업명 검색..." value="<%= pName != null ? pName : "" %>">
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-2">
-                                <button type="submit" class="btn btn-primary tm-btn-search">검색하기</button>
-                            </div>
-                        </div>
-                        <div class="form-row tm-search-form-row mt-3">
-                             <div class="form-group tm-form-element tm-form-element-50">
-                                <i class="fa fa-industry fa-2x tm-form-element-icon"></i>
-                                <input name="applied" type="text" class="form-control" placeholder="적용 건물 (예: 철도)" value="<%= pApplied != null ? pApplied : "" %>">
-                            </div>
-                            <div class="form-group tm-form-element tm-form-element-50">
-                                <i class="fa fa-cogs fa-2x tm-form-element-icon"></i>
-                                <input name="industrial" type="text" class="form-control" placeholder="산업권 건물 (예: 제강소)" value="<%= pIndustrial != null ? pIndustrial : "" %>">
-                            </div>
-                        </div>
-                    </form>
+                    
+                    <jsp:include page="search_company_form.jsp" />
+                    
                 </div>                        
             </div>      
         </div>

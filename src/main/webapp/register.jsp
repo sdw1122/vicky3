@@ -6,6 +6,7 @@
         var form = document.memberForm;
         var id = form.id.value;
         var passwd = form.passwd.value;
+        var passwdConfirm = form.passwdConfirm.value; // 비밀번호 확인 변수 추가
         var name = form.name.value;
 
         // 1. 아이디 체크 (4~12자)
@@ -26,15 +27,22 @@
              form.passwd.focus();
              return false;
         }
+        
+        // [추가] 비밀번호 확인 체크
+        if (passwd != passwdConfirm) {
+            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+            form.passwdConfirm.select(); // 불일치 시 확인 칸 선택
+            return false;
+        }
 
         var regExpName = /^[가-힣]*$/;
         if (name == "") {
-            alert("닉네임을 입력해주세요.");
+            alert("이름을 입력해주세요.");
             form.name.focus();
             return false;
         }
         if (!regExpName.test(name)) {
-            alert("닉네임은 한글만 입력해주세요!");
+            alert("이름은 한글만 입력해주세요!");
             form.name.select();
             return false;
         }
@@ -64,6 +72,14 @@
                                 <input type="password" name="passwd" class="form-control" placeholder="비밀번호 (4자 이상)">
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">비밀번호 확인</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="passwdConfirm" class="form-control" placeholder="비밀번호를 다시 입력하세요">
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">이름</label>
                             <div class="col-sm-9">

@@ -8,6 +8,7 @@ public class GalleryDTO {
     private String content;
     private String fileName;
     private String writer; // 작성자 필드 추가
+    private String writerId;
     private Timestamp regDate;
 
     public int getNo() { return no; }
@@ -22,4 +23,6 @@ public class GalleryDTO {
     public void setWriter(String writer) { this.writer = writer; } // Setter 추가
     public Timestamp getRegDate() { return regDate; }
     public void setRegDate(Timestamp regDate) { this.regDate = regDate; }
+    public String getWriterId() { return writerId; }
+    public void setWriterId(String writerId) { this.writerId = writerId; }
 }

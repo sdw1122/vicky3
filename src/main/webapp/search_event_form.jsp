@@ -1,21 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // 검색 상태 유지를 위한 파라미터 수신
-    String countryId = request.getParameter("adult");     
+    // 파라미터 수신 로직 (기존과 동일)
+    String countryId = request.getParameter("adult");
     String startYear = request.getParameter("check-in");  
     String endYear = request.getParameter("check-out");   
-    String typeId = request.getParameter("event_type");   
+    String typeId = request.getParameter("event_type");
 
-    // null 처리 (값이 없으면 빈 문자열로 설정)
     if(countryId == null) countryId = "";
     if(startYear == null) startYear = "";
     if(endYear == null) endYear = "";
     if(typeId == null) typeId = "";
 %>
 
+<style>
+    /* 화면 너비가 992px 이상(PC)일 때만 20% 너비(한 줄에 5개) 적용 */
+    @media (min-width: 992px) {
+        .tm-search-form .tm-form-element-20 {
+            width: 20%;
+        }
+    }
+    /* 992px 미만일 때는 tooplate-style.css의 tm-form-element 설정(33%, 50%, 100%)을 따름 */
+</style>
+
 <form action="historical_event.jsp" method="get" class="tm-search-form tm-section-pad-2">
     <div class="form-row tm-search-form-row">
-        <div class="form-group tm-form-element" style="width: 20%;">
+        <div class="form-group tm-form-element tm-form-element-20">
             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
             <select name="adult" class="form-control tm-select">
                 <option value="" <%= "".equals(countryId) ? "selected" : "" %>>전체 국가</option> 
@@ -32,17 +41,17 @@
             </select>
         </div>
 
-        <div class="form-group tm-form-element" style="width: 20%;">
+        <div class="form-group tm-form-element tm-form-element-20">
             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
             <input name="check-in" type="text" class="form-control" placeholder="시작 연도(1836~)" value="<%= startYear %>">
         </div>
 
-        <div class="form-group tm-form-element" style="width: 20%;">
+        <div class="form-group tm-form-element tm-form-element-20">
             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
             <input name="check-out" type="text" class="form-control" placeholder="종료 연도(~1936)" value="<%= endYear %>">
         </div>
 
-        <div class="form-group tm-form-element" style="width: 20%;">
+        <div class="form-group tm-form-element tm-form-element-20">
              <i class="fa fa-2x fa-user tm-form-element-icon"></i> 
              <select name="event_type" class="form-control tm-select"> 
                 <option value="" <%= "".equals(typeId) ? "selected" : "" %>>전체 유형</option>
@@ -55,7 +64,7 @@
             </select>
         </div>
 
-        <div class="form-group tm-form-element" style="width: 20%;">
+        <div class="form-group tm-form-element tm-form-element-20">
             <button type="submit" class="btn btn-primary tm-btn-search">검색</button>
         </div>
     </div>

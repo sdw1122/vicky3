@@ -18,14 +18,18 @@ public class GalleryDAO {
         return DriverManager.getConnection(URL, UID, PWD);
     }
 
+ // GalleryDAO.java
+
     // 게시글 저장
     public void insertGallery(GalleryDTO dto) {
-        String sql = "INSERT INTO GALLERY_BOARD (TITLE, CONTENT, FILENAME) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO GALLERY_BOARD (TITLE, CONTENT, FILENAME, WRITER, WRITER_ID) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, dto.getTitle());
             pstmt.setString(2, dto.getContent());
             pstmt.setString(3, dto.getFileName());
+            pstmt.setString(4, dto.getWriter());
+            pstmt.setString(5, dto.getWriterId()); // [추가]
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,8 +39,8 @@ public class GalleryDAO {
     // 게시글 목록 조회
     public List<GalleryDTO> getList() {
         List<GalleryDTO> list = new ArrayList<>();
-        // WRITER 컬럼 추가 조회
-        String sql = "SELECT NO, TITLE, CONTENT, FILENAME, WRITER, REGDATE FROM GALLERY_BOARD ORDER BY NO DESC";
+        // WRITER 컬럼 조회 추가
+        String sql = "SELECT * FROM GALLERY_BOARD ORDER BY NO DESC";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -46,7 +50,7 @@ public class GalleryDAO {
                 dto.setTitle(rs.getString("TITLE"));
                 dto.setContent(rs.getString("CONTENT"));
                 dto.setFileName(rs.getString("FILENAME"));
-                dto.setWriter(rs.getString("WRITER")); // 작성자 매핑 추가
+                dto.setWriter(rs.getString("WRITER")); // 작성자 이름 읽기
                 dto.setRegDate(rs.getTimestamp("REGDATE"));
                 list.add(dto);
             }
@@ -59,29 +63,36 @@ public class GalleryDAO {
  // 게시글 상세 조회 (이 메서드를 GalleryDAO 클래스 안에 추가하세요)
     public GalleryDTO getGallery(int no) {
         GalleryDTO dto = null;
-        // WRITER 컬럼도 가져오도록 쿼리 작성 (이전 단계에서 컬럼을 추가했다고 가정)
         String sql = "SELECT * FROM GALLERY_BOARD WHERE NO = ?";
-        
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
             pstmt.setInt(1, no);
-            
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     dto = new GalleryDTO();
                     dto.setNo(rs.getInt("NO"));
                     dto.setTitle(rs.getString("TITLE"));
-                    // 줄바꿈 처리를 위해 꺼낼 때 변환하거나 view에서 처리할 수 있음
-                    dto.setContent(rs.getString("CONTENT")); 
+                    dto.setContent(rs.getString("CONTENT"));
                     dto.setFileName(rs.getString("FILENAME"));
-                    dto.setWriter(rs.getString("WRITER")); // 작성자
+                    dto.setWriter(rs.getString("WRITER"));
+                    dto.setWriterId(rs.getString("WRITER_ID")); // [추가] 조회
                     dto.setRegDate(rs.getTimestamp("REGDATE"));
                 }
             }
+        } catch (Exception e) { e.printStackTrace(); }
+        return dto;
+    }
+    
+    public int deleteGallery(int no) {
+        String sql = "DELETE FROM GALLERY_BOARD WHERE NO = ?";
+        int result = 0;
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, no);
+            result = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return dto;
+        return result; // 삭제된 행의 개수 반환
     }
 }
